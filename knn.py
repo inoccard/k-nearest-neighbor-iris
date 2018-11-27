@@ -7,16 +7,14 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.cross_validation import cross_val_score
 from collections import Counter
-# =============================================================================================
-#					Parte I
-# =============================================================================================
 
 # ============================== pré-processamento de dados ===========================================
+
 # definir nomes de coluna
 names = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'class']
 
 # carregando dados de treinamento
-df = pd.read_csv('iris.data.txt', header=None, names=names)
+df = pd.read_csv('../k-nearest-neighbor-iris/iris.data.txt', header=None, names=names)
 print(df.head())
 
 # criar matriz de design X e vector de destino y
@@ -26,9 +24,9 @@ y = np.array(df['class']) 	# mostrando duas maneiras de indexar um pandas df
 # dividido em trem e teste
 X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.33, random_state=42)
 
-# ============================== KNN com k = 3 =============================================
-# modelo de aprendizagem essencial (k = 3)
-knn = KNeighborsClassifier(n_neighbors=3)
+
+# modelo de aprendizagem essencial (k = 4)
+knn = KNeighborsClassifier(n_neighbors=4)
 
 # ajustando o modelo
 knn.fit(X_treino, y_treino)
@@ -107,11 +105,12 @@ def kNearestNeighbor(X_treino, y_treino, X_teste, previsoes, k):
 	# prevê para cada observação de teste
 	for i in range(len(X_teste)):
 		previsoes.append(predict(X_treino, y_treino, X_teste[i, :], k))
+        
 # =========================== testando KNN =====================================
 # Fazendo as previsões
 previsoes = []
 try:
-	kNearestNeighbor(X_treino, y_treino, X_teste, previsoes, 7)
+	kNearestNeighbor(X_treino, y_treino, X_teste, previsoes, 8)
     
     # transforma a lista em um array
 	previsoes = np.asarray(previsoes)
